@@ -1,0 +1,110 @@
+<!-- -----#1----->
+https://developer.mozilla.org/ja/docs/Learn_web_development/Core/Scripting/Events -->
+
+イベント入門
+
+addEventListener() の使用
+
+<!-- ----#2----->
+http://developer.mozilla.org/ja/docs/Web/API/HTMLElement/change_event
+
+result.textContent = `${event.target.value}が好きですね`;
+
+<!-- html -->
+<label>
+  アイスクリームの味を選択してください。
+  <select class="ice-cream" name="ice-cream">
+    <option value="">1 つ選択してください …</option>
+    <option value="chocolate">チョコレート</option>
+    <option value="sardine">イワシ</option>
+    <option value="vanilla">バニラ</option>
+  </select>
+</label>
+
+<div class="result"></div>
+
+JavaScript
+const selectElement = document.querySelector(".ice-cream");
+const result = document.querySelector(".result");
+
+selectElement.addEventListener("change", (event) => {
+  const result = document.querySelector(".result");
+  result.textContent = `${event.target.value}が好きですね`;
+});
+
+<!-- JavaScript -->
+const selectElement = document.querySelector(".ice-cream");
+const result = document.querySelector(".result");
+
+selectElement.addEventListener("change", (event) => {
+  const result = document.querySelector(".result");
+  result.textContent = `${event.target.value}が好きですね`;
+});
+
+
+
+<!-- change イベントは -->
+ <input>, <select>, <textarea> 要素において、ユーザーが要素の値を変更したときに発行されます。 input イベントとは異なり、 change イベントは要素の値 (value) が変更されるたびに発生するとは限りません。
+
+その部分は、JavaScriptを学び始めるときに多くの人が「ん？どういう意味？」と引っかかる難所の一つです。
+
+バラバラに分解すると、実はとてもシンプルな要素が組み合わさっています。一歩ずつ紐解いていきましょう！
+
+---
+
+## 1. 全体の囲み：`${ ... }` ってなに？
+
+これは **テンプレートリテラル** という JavaScript の機能です。
+文字列をバッククォート（ ``` ）で囲むと、その文字列の中に `${JavaScriptのコード}` を直接埋め込むことができます。
+
+* **`${}` を使わない昔の書き方:**
+`event.target.value + "が好きですね"`
+* **`${}` を使った今の書き方:**
+`${event.target.value}が好きですね`
+
+プラス記号（`+`）でガチガチ繋ぐよりも、文章の形がそのまま見えるので読みやすいよね、という目的で使われています。
+
+---
+
+## 2. 中身の分解：`event.target.value`
+
+ここが本題です。ドット（`.`）で区切られた3つの言葉を、右から順番に翻訳していくと意味が分かります。
+
+### ① `value` （値）
+
+選択されたオプション（`<option>`）の中に設定されている、具体的な**データの中身**のことです。
+例えば、HTMLが以下のようになっていたとします。
+
+```html
+<option value="chocolate">チョコレート</option>
+
+```
+
+この場合、画面に見えているのは「チョコレート」ですが、プログラムが受け取る `value` は `"chocolate"` という文字列になります。
+
+### ② `target` （発生源 / ターゲット）
+
+イベントが**どこで起きたか**を指す言葉です。
+今回は「アイスクリームのセレクトボックス（`.ice-cream`）」をユーザーが操作した（`change` させた）ので、`target` は **「そのセレクトボックスそのもの（HTML要素）」** になります。
+
+### ③ `event` （出来事の情報が入った箱）
+
+ユーザーが何かを操作したとき（クリックした、文字を入力した、選択肢を変えたなど）、JavaScriptは「どんな操作が起きたか」という情報をぎゅっと詰め込んだオブジェクト（情報の箱）を作ります。それがこの `event` です。
+
+関数の引数にある `(event) => { ... }` の `event` は、「今からその情報が入った箱を使いますよ」という意味です。
+
+---
+
+## 3. つなげて翻訳してみよう！
+
+もう一度 `event.target.value` を繋げて、日本語に翻訳してみます。
+
+> **「今回の出来事（`event`）の、発生源となった要素（`target`）の、今選択されている値（`value`）」**
+
+つまり、ユーザーがバニラを選んだとしたら：
+
+1. `event`：あ、セレクトボックスが変更されたな！
+2. `event.target`：変更されたのは、この `.ice-cream` というセレクトボックスだな。
+3. `event.target.value`：そのセレクトボックスの、今選ばれた値は `"vanilla"` だな！
+
+結果として、`"vanillaが好きですね"` という文字列が完成し、画面に表示される仕組みになっています。

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        let time;
+        let count;
+        let id;
+        let dom;
+        let sounds;
+
+        function count2time(count) {                            
+            let seconds,minutes,time;
+            minutes = Math.floor(count / 60);
+            minutes = ("0" + minutes).slice(-2);
+            seconds = count % 60;
+            seconds = ("0" + seconds).slice(-2);
+            time = minutes + ":" + seconds;
+            return time;
+        }
+        function init() {
+            count = 80;
+            time = count2time(count);
+            dom = document.getElementById("count");
+            dom.textContent = time;
+            sounds = {
+                start:new Audio('start.mp3'),
+                s60:new Audio('s60.mp3'),
+                s30:new Audio('s30.mp3'),
+                s10:new Audio('s10.mp3'),
+                end:new Audio('end.mp3'),
+            }
+        }
+        function main(first = false) {
+            if (first) {
+                document.getElementById("start").style.display = "none";
+                sounds.start.play();
+            } else if (count == 60) {
+                sounds.s60.play();
+                count--;
+            } else if (count == 30) {
+                sounds.s30.play();
+                count--;
+            } else if (count == 10) {
+                sounds.s10.play();
+                count--;
+            } else if (count == 0) {
+                sounds.end.play();
+                clearTimeout(id);
+                return true;
+            } else {
+                count--;
+            }
+
+            time = count2time(count);
+            dom.textContent = time;
+            id = setTimeout(main, 1000);
+        }
+    </script>
+</head>
+<body onload="init()">
+    <h1>ソーメンタイマー(BASIC)</h1>
+    <time id="count">00:00</time>
+    <button onclick="main(true);" id="start">スタート！</button>
+</body>
+</html>

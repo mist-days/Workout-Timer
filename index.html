@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="js/classic.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- <body onload="init()"> -->
+<body>
+    <!-- <script src="js/scmain.js"></script> -->
+    <!-- <div id="stage" style="position:relative; margin: 0 auto; overflow: hidden; background: url(img/bg_g.jpg)"></div> -->
+
+    <h1>Let's Move！</h1><br>
+    <div  class="qoute">
+        <p>When you feel like quitting,<br> Remember why you started!</p>
+    </div>
+    <!-- ---------SET Sport---------- -->
+    <div class="box">
+        <label for="sport-select" class="title">やりたい運動は</label><br>
+        <div id="flex-container1">
+            <select name="sports" id="sport-select">
+                <option value="running">ランニング</option>
+                <option value="kettlebell">ケトルベル</option>
+                <option value="tennis">テニス</option>
+                <option value="basket">バスケット</option>
+                <option value="bicycle">自転車</option>
+                <option value="rope-jumping">縄跳び</option>
+            </select><br><br>
+        </div>
+    </div>
+
+    <!-- ---------SET Time---------- -->
+    <!-- set minute from 00min to 30min -->
+    <div class="box">
+        <label for="timeset" class="title">運動時間</label><br>
+        <div id="flex-container2">
+            <div class=minutetable>
+                <!-- onchange="init()" 
+                https://developer.mozilla.org/ja/docs/Web/API/HTMLElement/change_event-->
+                <!-- When set the minute, Timer changes-->
+                <select name="minuteselect" id="min-select" onchange="init()">  
+                    <option value="00">00 m</option>
+                    <option value="01">01 m</option>
+                    <option value="05">05 m</option>
+                    <option value="15">15 m</option>
+                    <option value="20">20 m</option>
+                    <option value="25">25 m</option>
+                    <option value="30">30 m</option>
+                </select>
+            </div>
+            <!--<div class=tlable3>
+             set second from 00s to 50s
+                <select name="time-second" id="time-select2">
+                    <option value="00">00 s</option>
+                    <option value="10">10 s</option>
+                    <option value="20">20 s</option>
+                    <option value="30">30 s</option>
+                    <option value="40">40 s</option>
+                    <option value="50">50 s</option>
+                </select><br><br>
+            </div> -->
+            <!-- ---------SET Time---------- -->
+        </div>
+    </div>
+    
+    <!-- <div onload="setTime();" class= "countflex"> -->
+    <div class= "countflex">
+        <div>
+            <time id="count">00:00</time><br>
+        </div>
+    </div>
+    <div class= "btnplace">
+        <div>
+            <button onclick="startTimer(true);" id="startBtn">スタート！</button><br>
+        </div>
+        <div>
+            <button onclick="stopTimer()"; id="stopBtn">ストップ！</button><br>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class = "sport-rec-container">
+            <div>
+                <p>今日の運動記録</p>
+                </div>
+            <div>
+                <textarea name="record" id="record"></textarea>
+            </div>
+        </div>
+    </div>
+    <script src="js/scmain.js"></script>
+</body>
+</html>
+
+
+
